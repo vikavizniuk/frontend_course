@@ -1,1 +1,2 @@
-print("This is a test on Python")
+n = int(input())
+print("This is", n, "test on Python")
