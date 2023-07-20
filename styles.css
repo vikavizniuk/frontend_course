@@ -1,6 +1,7 @@
 header {
   background-color: rgb(232, 232, 232);
-  padding: 20px 0 20px 0;
+  padding-top: 20px;
+  padding-bottom: 20px;
   height: 10vh;
   width: auto;
   display: flex;
@@ -54,13 +55,13 @@ section {
   background-color: rgb(232, 232, 232);
 }
 
-.text {
+.text1 {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.text p {
+.text1 p {
   font-family: "Roboto", sans-serif;
   font-size: 4vw;
   display: block;
@@ -102,11 +103,15 @@ section img {
   font-family: "Roboto", sans-serif;
   font-size: 4vw;
   width: 40vw;
-  padding: 30px 0 0 40px;
+  padding-top: 30px;
+  padding-left: 40px;
 }
 
 .vstup {
-  padding: 70px 25% 30px 25%;
+  padding-left: 25%;
+  padding-right: 25%;
+  padding-top: 70px;
+  padding-bottom: 30px;
 }
 
 .vstup p {
@@ -114,8 +119,9 @@ section img {
 }
 
 .nav {
+  padding-left: 25%;
   font-family: "Poppins", sans-serif;
-  padding: 0 0 10% 25%;
+  padding-bottom: 10%;
 }
 
 .nav p {
@@ -147,42 +153,48 @@ article {
   grid-template-rows: 20% 20% 20% 20% 20%;
 }
 
-.grey_section {
+.greyback2 {
   background-color: rgb(224, 224, 224);
   grid-area: 2/2/6/8;
 }
 
-.yellow_section {
+.yellowback2 {
   background-color: yellow;
   grid-area: 3/7/8/9;
 }
 
-.chornovil_picture {
+.picture1 {
   grid-area: 1/6/5/13;
 }
 
-.earlylife {
+.header2 {
   font-family: "Poppins", sans-serif;
   font-size: 6vw;
   text-align: center;
   margin-bottom: 6%;
 }
 
-.about_earlylife {
-  padding: 0 10% 0 10%;
+.text2 {
+  padding-left: 10%;
+  padding-right: 10%;
+  margin-bottom: 50px;
   font-size: 2vw;
+  margin: 0;
 }
 
-.grey_section button {
+.greyback2 button {
   background-color: rgb(224, 224, 224);
   border-color: black;
-  padding: 10px 30px 10px 30px;
+  padding-left: 20%;
+  padding-right: 20%;
+  padding: 10px;
   width: 14vw;
   height: 5vw;
+  margin-top: 5%;
   margin-left: 10%;
 }
 
-.grey_section button:hover {
+.greyback2 button:hover {
   background-color: rgb(42, 42, 42);
   color: white;
   transition: 0.4s;
@@ -195,12 +207,7 @@ footer {
 }
 
 form {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: 25%;
-  margin: 0 25% 0 25%;
-  padding: 0 30px 0 30px;
+  margin-left: 25%;
 }
 
 footer p {
@@ -214,7 +221,7 @@ footer input {
   border-color: white;
   background-color: rgb(14, 14, 14);
   color: white;
-  width: 51vw;
+  width: 50vw;
   height: 3vw;
 }
 
@@ -225,19 +232,15 @@ footer label {
 }
 
 footer button {
-  border-color: yellow;
+  border-color: rgb(13, 13, 13);
   background-color: yellow;
   color: rgb(14, 14, 14);
-  width: 50vw;
-  height: 3.5vw;
-  margin-top: 5px;
-  font-family: italic;
-  font-size: 1.5vw;
+  width: 51vw;
+  height: 3vw;
 }
 
 footer button:hover {
   background-color: rgb(13, 13, 13);
   color: white;
-  border-color: rgb(13, 13, 13);
   transition: 0.4s;
 }
