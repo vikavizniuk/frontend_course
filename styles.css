@@ -195,10 +195,12 @@ footer {
 }
 
 form {
-  margin-left: 25%;
+  position: relative;
   display: flex;
   flex-wrap: wrap;
-  padding-right: 20%;
+  margin-right: 25%;
+  margin: 0 25% 0 25%;
+  padding: 0 30px 0 30px;
 }
 
 footer p {
@@ -212,7 +214,7 @@ footer input {
   border-color: white;
   background-color: rgb(14, 14, 14);
   color: white;
-  width: 50vw;
+  width: 51vw;
   height: 3vw;
 }
 
@@ -223,15 +225,19 @@ footer label {
 }
 
 footer button {
-  border-color: rgb(13, 13, 13);
+  border-color: yellow;
   background-color: yellow;
   color: rgb(14, 14, 14);
-  width: 51vw;
-  height: 3vw;
+  width: 50vw;
+  height: 3.5vw;
+  margin-top: 5px;
+  font-family: italic;
+  font-size: 1.5vw;
 }
 
 footer button:hover {
   background-color: rgb(13, 13, 13);
   color: white;
+  border-color: rgb(13, 13, 13);
   transition: 0.4s;
 }
