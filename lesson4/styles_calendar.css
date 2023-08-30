@@ -54,7 +54,7 @@ body {
   justify-content: center;
 }
 
-.calendar_days {
+#calendar_days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(7, 1fr);
@@ -69,7 +69,7 @@ body {
   width: 80%;
 }
 
-.days {
+#days {
   padding: 40%;
 }
 
@@ -82,6 +82,21 @@ body {
 }
 
 .day-cell:hover {
+  transition: 0.5s;
+  background-color: rgb(37, 37, 114);
+  color: aqua;
+  font-size: x-large;
+}
+
+.empty-cell {
+  color: azure;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+}
+
+.empty-cell:hover {
   transition: 0.5s;
   background-color: rgb(37, 37, 114);
   color: aqua;

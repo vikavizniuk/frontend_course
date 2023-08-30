@@ -2,6 +2,11 @@ const selectors = {
   prevMonth: "month_prev",
   currMonth: "month_curr",
   nextMonth: "month_next",
+  calendarDays: "calendar_days",
+  emptyCell: "empty-cell",
+  dayCell: "day-cell",
+  days: "days",
+  calendarWeek: "week_days",
 };
 
 const months = [
@@ -18,6 +23,22 @@ const months = [
   "November",
   "December",
 ];
+const shortMonths = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+const days = ["MON", "TUE", "WED", "THU", "FRI", "SUT", "SUN"];
 
 class Calendar {
   constructor() {
@@ -28,6 +49,7 @@ class Calendar {
 
   render() {
     this.renderMonth();
+    this.setWeekDays();
     this.addMonthEventListeners();
     this.addDaysEventListener();
   }
@@ -59,68 +81,107 @@ class Calendar {
     next.addEventListener("click", this.setSelectedMonth.bind(this, +1));
   }
 
-  //CALENDAR DAYS
-
   addDaysEventListener() {
-    const calendar = document.querySelector(".calendar_days");
-    let currentDate = new Date(this.selectedMonth);
-
-    function updateCalendar() {
-      calendar.innerHTML = "";
-
-      const firstDay = new Date(
-        currentDate.getFullYear(),
-        currentDate.getMonth(),
-        0
-      );
-      const lastDay = new Date(
-        currentDate.getFullYear(),
-        currentDate.getMonth() + 1,
-        0
-      ).getDate();
-      const startingDay = firstDay.getDay();
-
-      for (let i = 0; i < startingDay; i++) {
-        const emptyCell = document.createElement("div");
-        calendar.appendChild(emptyCell);
-      }
-
-      for (let day = 1; day <= lastDay; day++) {
-        const monthIndex = currentDate.getUTCMonth();
-        const year = currentDate.getFullYear();
-        const dayCell = document.createElement("div");
-
-        dayCell.classList.add("day-cell");
-        dayCell.textContent = day;
-        calendar.appendChild(dayCell);
-        dayCell.addEventListener("click", function () {
-          const clickedDate = new Date(
-            currentDate.getFullYear(),
-            currentDate.getMonth(),
-            day
-          );
-          const dayOfWeek = clickedDate.toLocaleDateString("en-US", {
-            weekday: "long",
-          });
-          alert(
-            day + " " + months[monthIndex] + " " + year + " " + `${dayOfWeek}`
-          );
-        });
-      }
-    }
-
     const prev = document.getElementById(selectors.prevMonth);
     const next = document.getElementById(selectors.nextMonth);
+    let currentDate = new Date(this.selectedMonth);
 
-    prev.addEventListener("click", function () {
+    prev.addEventListener("click", () => {
       currentDate.setMonth(currentDate.getMonth() - 1);
-      updateCalendar();
+      this.updateCalendar(currentDate);
     });
-    next.addEventListener("click", function () {
+
+    next.addEventListener("click", () => {
       currentDate.setMonth(currentDate.getMonth() + 1);
-      updateCalendar();
+      this.updateCalendar(currentDate);
     });
-    updateCalendar();
+    this.updateCalendar(currentDate);
+  }
+
+  addClickDateEventListener(dayCell, day, monthIndex, year, dayOfWeek) {
+    dayCell.addEventListener("click", () => {
+      alert(`${day} ${months[monthIndex]} ${year} ${dayOfWeek}`);
+    });
+  }
+
+  // CALENDAR
+
+  setWeekDays() {
+    const weekDays = document.querySelectorAll("#days");
+    for (let i = 0; i < weekDays.length; i++) {
+      weekDays[i].textContent = days[i];
+    }
+  }
+
+  updateCalendar(currentDate) {
+    const calendar = document.getElementById(selectors.calendarDays);
+
+    calendar.innerHTML = "";
+
+    const firstDay = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      0
+    );
+    const lastDay = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+      0
+    ).getDate();
+
+    const startingDay = firstDay.getDay();
+
+    const prevMonthLastDay = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      0
+    ).getDate();
+    for (let i = 0; i < startingDay; i++) {
+      const prevMonthIndex = currentDate.getUTCMonth() - 1;
+      const emptyCell = document.createElement("div");
+      emptyCell.classList.add(selectors.emptyCell);
+      emptyCell.textContent =
+        shortMonths[prevMonthIndex] +
+        " " +
+        (prevMonthLastDay - startingDay + i + 1);
+      calendar.appendChild(emptyCell);
+    }
+
+    for (let day = 1; day <= lastDay; day++) {
+      const monthIndex = currentDate.getUTCMonth();
+      const dayCell = document.createElement("div");
+      const year = currentDate.getFullYear();
+
+      dayCell.classList.add(selectors.dayCell);
+      dayCell.textContent = shortMonths[monthIndex] + " " + day;
+      calendar.appendChild(dayCell);
+
+      const clickedDate = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        day
+      );
+      const dayOfWeek = clickedDate.toLocaleDateString("en-US", {
+        weekday: "long",
+      });
+      this.addClickDateEventListener(dayCell, day, monthIndex, year, dayOfWeek);
+    }
+
+    const nextMonthFirstDay = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+      1
+    );
+    const nextMonthStartingDay = nextMonthFirstDay.getDay();
+    const remainingEmptyCells = 7 - ((startingDay + lastDay) % 7);
+    for (let i = 0; i < remainingEmptyCells; i++) {
+      const year = currentDate.getFullYear() + 1;
+      const nextMonthIndex = currentDate.getUTCMonth() + 1;
+      const emptyCell = document.createElement("div");
+      emptyCell.classList.add(selectors.emptyCell);
+      emptyCell.textContent = shortMonths[nextMonthIndex] + " " + (i + 1);
+      calendar.appendChild(emptyCell);
+    }
   }
 
   setSelectedMonth(number) {
